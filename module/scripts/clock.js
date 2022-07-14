@@ -13,14 +13,14 @@ export class Clock {
   }
 
   constructor ({ theme, size, progress } = {}) {
-		this.themesPromise = FilePicker.browse("data", "modules/lancer-clocks/themes").then(data => {
+		this.themesPromise = FilePicker.browse("data", "modules/progress-clocks/themes").then(data => {
 		  let tempDirs = data.dirs;
 		  let newDirs = [];
 		  let newPaths = [];
 		  let baseDirCheck = false;
 		  tempDirs.forEach((dirItem) => {
-		    let newDirItem = dirItem.replace("modules/lancer-clocks/themes/","");
-		    if (dirItem.startsWith("modules/lancer-clocks/themes/")) {
+		    let newDirItem = dirItem.replace("modules/progress-clocks/themes/","");
+		    if (dirItem.startsWith("modules/progress-clocks/themes/")) {
 				newDirs.push(newDirItem);
 				newPaths.push(dirItem);
 				//console.log(dirItem)
@@ -29,7 +29,6 @@ export class Clock {
 		  });
 		  if (!(baseDirCheck)) {
 			  console.error("Failed.")
-			//throw "Lancer Clock Direrctory Error: No valid directories for base themes."; //Enabling this Breaks Things.
 		  };
 		  
 		this._themes = newDirs;
@@ -38,7 +37,7 @@ export class Clock {
 		}).catch(err => {
 			console.error(err)
 		});
-		let extraPath = game.settings.get("lancer-clocks","extraPaths")
+		let extraPath = game.settings.get("progress-clocks","extraPaths")
 		if (!(extraPath.endsWith("/"))) {
 			extraPath = extraPath+"/"
 		}
@@ -59,7 +58,6 @@ export class Clock {
 			//console.log(tempDirs);
 			if (!(extraDirCheck)) {
 				//console.error("Extra Failed.");
-				//throw "Lancer Clock Directory Error: No valid directories for extra themes."; //Enabling this Breaks Things.
 			};
 			this._extraThemePaths = newExtraPaths;
 			this._extraThemes = newExtraDirs;
@@ -72,10 +70,8 @@ export class Clock {
     const p = (!progress || progress < 0) ? 0 : progress < this._size ? progress : this._size;
     this._progress = p || 0;
 
-    this._theme = theme || this._themes?.[0] || "lancer_wallflower_green";
-	//let testingThemes = FilePicker.browse("data", "modules/lancer-clocks/themes").then(data => {console.log(data)});
-	//console.log(testingThemes);
-  }
+    this._theme = theme || this._themes?.[0] || "wallflower_green";
+	  }
 
   get theme () {
     return this._theme;
@@ -91,7 +87,6 @@ export class Clock {
 
   get image () {
     return { 
-      //img: `/modules/lancer-clocks/themes/${this.theme}/${this.size}clock_${this.progress}.png`,
       width: 350,
       height: 350
     };

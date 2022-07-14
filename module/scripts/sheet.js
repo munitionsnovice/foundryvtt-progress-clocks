@@ -21,8 +21,8 @@ export class ClockSheet extends ActorSheet {
 	  return mergeObject(
       super.defaultOptions,
       {
-        classes: ["lancer-clocks", "sheet", `lancer-clocks-system-${game.data.system.id}`, "actor", "npc"],
-        template: "/modules/lancer-clocks/templates/sheet.html",
+        classes: ["progress-clocks", "sheet", `progress-clocks-system-${game.data.system.id}`, "actor", "npc"],
+        template: "modules/progress-clocks/templates/sheet.html",
         width: 375,
         height: 600,
         ...supportedSystem.sheetDefaultOptions
@@ -168,7 +168,6 @@ export class ClockSheet extends ActorSheet {
 				img: `/${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`,
 				actorLink: true
 			});
-		//minor backwards compatability, will be removed sometime after the Lancer system fully updates to Foundry 0.8.x
 		} else if (verMajor == "0.7"){
 			await t.update({
 				name: actor.name,

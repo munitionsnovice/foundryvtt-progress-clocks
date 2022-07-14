@@ -8,16 +8,16 @@ const SUPPORTED_SYSTEMS = {
 
 const defaultLoadClockFromActor = ({ actor }) => {
   return {
-    progress: actor.getFlag("lancer-clocks", "progress"),
-    size: actor.getFlag("lancer-clocks", "size"),
-    theme: actor.getFlag("lancer-clocks", "theme")
+    progress: actor.getFlag("progress-clocks", "progress"),
+    size: actor.getFlag("progress-clocks", "size"),
+    theme: actor.getFlag("progress-clocks", "theme")
   };
 };
 
 const defaultPersistClockToActor = async ({ clock }) => {
   return {
     flags: {
-      "lancer-clocks": {
+      "progress-clocks": {
         progress: clock.progress,
         size: clock.size,
         theme: clock.theme
