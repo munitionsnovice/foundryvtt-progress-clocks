@@ -1,3 +1,9 @@
+// System Files
 .DS_Store
+
+// Artifacts
 build.zip
 node_modules
+
+// Development
+.screenrc
