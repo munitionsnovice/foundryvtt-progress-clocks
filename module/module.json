@@ -9,6 +9,6 @@
   "version": "1.0.16",
   "minimumCoreVersion": "0.7.0",
   "compatibleCoreVersion": "9",
-  "esmodules": ["modules/init.js"],
+  "esmodules": ["scripts/init.js"],
   "styles": ["styles/clocks.css"]
 }

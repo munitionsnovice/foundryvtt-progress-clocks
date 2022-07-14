@@ -22,7 +22,7 @@ export class ClockSheet extends ActorSheet {
       super.defaultOptions,
       {
         classes: ["lancer-clocks", "sheet", `lancer-clocks-system-${game.data.system.id}`, "actor", "npc"],
-        template: "/modules/lancer-clocks/templates/sheet.html",
+        template: "modules/progress-clocks/templates/sheet.html",
         width: 375,
         height: 600,
         ...supportedSystem.sheetDefaultOptions
