@@ -1,6 +1,5 @@
 import { Clock } from "./clock.js";
 import { getSystemMapping } from "./systems/index.js";
-import { log, warn } from "./util.js";
 
 const DISPLAY_NAME = {
     ALWAYS_FOR_EVERYONE: 50
@@ -18,10 +17,16 @@ const DEFAULT_TOKEN = {
 export class ClockSheet extends ActorSheet {
     static get defaultOptions() {
         const supportedSystem = getSystemMapping(game.data.system.id);
-	      return mergeObject(
+        return mergeObject(
             super.defaultOptions,
             {
-                classes: ["progress-clocks", "sheet", `progress-clocks-system-${game.data.system.id}`, "actor", "npc"],
+                classes: [
+                    "progress-clocks",
+                    "sheet",
+                    `progress-clocks-system-${game.data.system.id}`,
+                    "actor",
+                    "npc"
+                ],
                 template: "modules/progress-clocks/templates/sheet.html",
                 width: 375,
                 height: 600,
@@ -32,39 +37,40 @@ export class ClockSheet extends ActorSheet {
 
     static register () {
         const supportedSystem = getSystemMapping(game.data.system.id);
-        Actors.registerSheet(supportedSystem.id, ClockSheet, supportedSystem.registerSheetOptions);
-        log("Sheet Registered");
+        Actors.registerSheet(
+            supportedSystem.id,
+            ClockSheet,
+            supportedSystem.registerSheetOptions
+        );
     }
 
     constructor (...args) {
         super(...args);
-        this._system = getSystemMapping(game.data.system.id);
-    }
-
-    get system () {
-        return this._system;
+        this.system = getSystemMapping(game.data.system.id);
     }
 
     async getData () {
-        const clock = new Clock(this.system.loadClockFromActor({ actor: this.actor }));
-	      await clock.themesPromise;
-	      let themeDict = {};
-	      clock._themes.forEach((themeItem) =>{
-		        themeDict[themeItem] = clock._themePaths[clock._themes.indexOf(themeItem)]
-	      });
+        const clock = new Clock(
+            this.system.loadClockFromActor({
+                actor: this.actor
+            })
+        );
         return mergeObject(super.getData(), {
             clock: {
                 progress: clock.progress,
                 size: clock.size,
                 theme: clock.theme,
                 image: {
-                    url: `/${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`,
-                    width: clock.image.width,
-                    height: clock.image.height
+                    url: (
+                        `/${Clock.themes[clock.theme]}` +
+                        `/${clock.size}clock_${clock.progress}.png`
+                    ),
+                    width: Clock.image.width,
+                    height: Clock.image.height
                 },
                 settings: {
                     sizes: Clock.sizes,
-                    themes: clock._themes
+                    themes: Object.keys(Clock.themes)
                 }
             }
         });
@@ -73,26 +79,39 @@ export class ClockSheet extends ActorSheet {
     activateListeners (html) {
         super.activateListeners(html);
 
-        html.find("button[name=minus]").click(async (ev) => {
-            ev.preventDefault();
-            const oldClock = new Clock(this.system.loadClockFromActor({ actor: this.actor }));
+        html.find("button[name=minus]").click(async (e) => {
+            e.preventDefault();
+            const oldClock = new Clock(
+                this.system.loadClockFromActor({
+                    actor: this.actor
+                })
+            );
             this.updateClock(oldClock.decrement());
         });
 
-        html.find("button[name=plus]").click(async (ev) => {
-            ev.preventDefault();
-            const oldClock = new Clock(this.system.loadClockFromActor({ actor: this.actor }));
+        html.find("button[name=plus]").click(async (e) => {
+            e.preventDefault();
+            const oldClock = new Clock(
+                this.system.loadClockFromActor({
+                    actor: this.actor
+                })
+            );
             this.updateClock(oldClock.increment());
         });
 
         html.find("button[name=reset]").click(async (ev) => {
             ev.preventDefault();
-            const oldClock = new Clock(this.system.loadClockFromActor({ actor: this.actor }));
-            this.updateClock(new Clock({
+            const oldClock = new Clock(
+                this.system.loadClockFromActor({
+                    actor: this.actor
+                })
+            );
+            const newClock = new Clock({
                 theme: oldClock.theme,
                 progress: 0,
                 size: oldClock.size
-            }));
+            });
+            this.updateClock(newClock);
         });
     }
 
@@ -100,8 +119,11 @@ export class ClockSheet extends ActorSheet {
         await this.object.update({
             name: form.name
         });
-
-        const oldClock = new Clock(this.system.loadClockFromActor({ actor: this.actor }));
+        const oldClock = new Clock(
+            this.system.loadClockFromActor({
+                actor: this.actor
+            })
+        );
         let newClock = new Clock({
             progress: oldClock.progress,
             size: form.size,
@@ -113,41 +135,49 @@ export class ClockSheet extends ActorSheet {
     async updateClock(clock) {
         const actor = this.actor;
 
-	      await clock.themesPromise;
-
-	      let themeDict = {};
-	      clock._themes.forEach((themeItem) =>{
-		        themeDict[themeItem] = clock._themePaths[clock._themes.indexOf(themeItem)]
-	      });
-
 	      let fullVer = game.version ?? game.data.version;
+
         // update associated tokens
         const tokens = actor.getActiveTokens();
 	      let verMajor = fullVer.slice(0,3);
 
-        for (const t of tokens) {
+        for (const token of tokens) {
 		        //version check for compatability
 		        if (verMajor == "0.8" || verMajor.startsWith("9")) {
-			          await t.document.update({
+			          await token.document.update({
 				            name: actor.name,
-				            img: `/${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`,
+				            img: (
+                        `/${Clock.themes[clock.theme]}` +
+                        `/${clock.size}clock_${clock.progress}.png`
+                    ),
 				            actorLink: true
 			          });
 		        } else if (verMajor == "0.7"){
-			          await t.update({
+			          await token.update({
 				            name: actor.name,
-				            img: `/${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`,
+				            img: (
+                        `/${Clock.themes[clock.theme]}` +
+                        `/${clock.size}clock_${clock.progress}.png`
+                    ),
 				            actorLink: true
 			          });
 		        };
         }
 
         // update the Actor
-        const persistObj = await this.system.persistClockToActor({ actor, clock });
+        const persistObj = await this.system.persistClockToActor({
+            actor, clock
+        });
         const visualObj = {
-            img: `/${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`,
+				    img: (
+                `/${Clock.themes[clock.theme]}` +
+                `/${clock.size}clock_${clock.progress}.png`
+            ),
             token: {
-                img: `/${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`,
+				        img: (
+                    `/${Clock.themes[clock.theme]}` +
+                    `/${clock.size}clock_${clock.progress}.png`
+                ),
                 ...DEFAULT_TOKEN
             }
         };
