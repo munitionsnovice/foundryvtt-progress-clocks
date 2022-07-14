@@ -99,8 +99,8 @@ export class ClockSheet extends ActorSheet {
             this.updateClock(oldClock.increment());
         });
 
-        html.find("button[name=reset]").click(async (ev) => {
-            ev.preventDefault();
+        html.find("button[name=reset]").click(async (e) => {
+            e.preventDefault();
             const oldClock = new Clock(
                 this.system.loadClockFromActor({
                     actor: this.actor

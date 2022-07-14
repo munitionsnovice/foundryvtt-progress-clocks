@@ -22,7 +22,7 @@ export class Clock {
         wallflower_green_grey: `${Clock.themePath}/wallflower_green_grey`
     };
 
-    constructor ({ theme, size, progress } = {}) {
+    constructor ({ size, progress, theme } = {}) {
         const isSupportedSize = size && Clock.sizes.indexOf(parseInt(size)) >= 0;
 
         this.size = isSupportedSize ? parseInt(size) : Clock.sizes[0];
@@ -41,43 +41,43 @@ export class Clock {
     get flags () {
         return {
             clocks: {
-                theme: this.theme,
                 size: this.size,
-                progress: this.progress
+                progress: this.progress,
+                theme: this.theme
             }
         };
     }
 
     cycleSize () {
         return new Clock({
-            theme: this.theme,
             size: Clock.sizes[nextIndexInArray(Clock.sizes, this.size)],
-            progress: this.progress
+            progress: this.progress,
+            theme: this.theme
         });
     }
 
     increment () {
         const old = this;
         return new Clock({
-            theme: old.theme,
             size: old.size,
-            progress: old.progress + 1
+            progress: old.progress + 1,
+            theme: old.theme
         });
     }
 
     decrement () {
         const old = this;
         return new Clock({
-            theme: old.theme,
             size: old.size,
-            progress: old.progress - 1
+            progress: old.progress - 1,
+            theme: old.theme
         });
     }
 
     isEqual (clock) {
         return clock
-            && clock.progress === this.progress
             && clock.size === this.size
+            && clock.progress === this.progress
             && clock.theme === this.theme;
     }
 
