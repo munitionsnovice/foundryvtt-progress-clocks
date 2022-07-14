@@ -60,7 +60,7 @@ export default {
       return;
     }
 
-    const buttonHTML = await renderTemplate('/modules/lancer-clocks/templates/buttons.html');
+    const buttonHTML = await renderTemplate('modules/progress-clocks/templates/buttons.html');
     html.find("div.left").append(buttonHTML).click(async (event) => {
       log("HUD Clicked")
       // re-get in case there has been an update

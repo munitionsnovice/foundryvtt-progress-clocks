@@ -1,14 +1,14 @@
 {
-  "name": "progress-clocks",
-  "title": "Progress Clocks",
-  "description": "Brings Forged in the Dark style progress clocks to your FoundryVTT games.",
-  "author": "troygoode, Argonius-Angelus, mattd",
-  "url": "https://github.com/mattd/foundryvtt-progress-clocks",
-  "manifest": "https://raw.githubusercontent.com/mattd/foundryvtt-progress-clocks/main/module/module.json",
-  "download": "https://github.com/Argonius-Angelus/lancer-clocks/archive/L1.0.16.zip",
-  "version": "1.0.16",
-  "minimumCoreVersion": "0.7.0",
-  "compatibleCoreVersion": "9",
-  "esmodules": ["scripts/init.js"],
-  "styles": ["styles/clocks.css"]
+    "name": "progress-clocks",
+    "title": "Progress Clocks",
+    "description": "Brings Forged in the Dark style progress clocks to your FoundryVTT games.",
+    "author": "troygoode, Argonius-Angelus, mattd",
+    "url": "https://github.com/mattd/foundryvtt-progress-clocks",
+    "manifest": "https://raw.githubusercontent.com/mattd/foundryvtt-progress-clocks/main/module/module.json",
+    "download": "https://github.com/mattd/foundryvtt-progress-clocks/releases/download/v1.4.0/build.zip",
+    "version": "1.4.0",
+    "minimumCoreVersion": "0.7.0",
+    "compatibleCoreVersion": "9",
+    "esmodules": ["scripts/init.js"],
+    "styles": ["styles/clocks.css"]
 }
