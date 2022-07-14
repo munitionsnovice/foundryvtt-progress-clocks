@@ -4,78 +4,48 @@ const nextIndexInArray = (arr, el) => {
 }
 
 export class Clock {
-  static get sizes () {
-    return [2, 3, 4, 5, 6, 8, 10, 12];
-  }
+    static get sizes () {
+        return [2, 3, 4, 5, 6, 8, 10, 12];
+    }
 
-  static get themes () {
-    return this._themes
-  }
+    static get themes () {
+        return this._themes;
+    }
 
-  constructor ({ theme, size, progress } = {}) {
-		this.themesPromise = FilePicker.browse("data", "modules/progress-clocks/themes").then(data => {
-		  let tempDirs = data.dirs;
-		  let newDirs = [];
-		  let newPaths = [];
-		  let baseDirCheck = false;
-		  tempDirs.forEach((dirItem) => {
-		    let newDirItem = dirItem.replace("modules/progress-clocks/themes/","");
-		    if (dirItem.startsWith("modules/progress-clocks/themes/")) {
-				newDirs.push(newDirItem);
-				newPaths.push(dirItem);
-				//console.log(dirItem)
-				baseDirCheck = true;
-			}
-		  });
-		  if (!(baseDirCheck)) {
-			  console.error("Failed.")
-		  };
-		  
-		this._themes = newDirs;
-		this._themePaths = tempDirs;
-		
-		}).catch(err => {
-			console.error(err)
-		});
-		let extraPath = game.settings.get("progress-clocks","extraPaths")
-		if (!(extraPath.endsWith("/"))) {
-			extraPath = extraPath+"/"
-		}
-		//console.log(extraPath)
-		this.extraThemesPromise = FilePicker.browse("data",extraPath).then(data => {
-			let tempExtraDirs = data.dirs;
-			let newExtraDirs = [];
-			let newExtraPaths = [];
-			let extraDirCheck = false;
-			tempExtraDirs.forEach((extraDirItem) => {
-				let newExtraDirItem = extraDirItem.replace(extraPath,"");
-				if (extraDirItem.startsWith(extraPath)) {
-					newExtraDirs.push(newExtraDirItem);
-					newExtraPaths.push(extraDirItem);
-					extraDirCheck = true;
-				}
-			})
-			//console.log(tempDirs);
-			if (!(extraDirCheck)) {
-				//console.error("Extra Failed.");
-			};
-			this._extraThemePaths = newExtraPaths;
-			this._extraThemes = newExtraDirs;
-		}).catch(err => {
-			console.error(err)
-		});
-    const isSupportedSize = size && Clock.sizes.indexOf(parseInt(size)) >= 0;
-    this._size = isSupportedSize ? parseInt(size) : Clock.sizes[0];
+    constructor ({ theme, size, progress } = {}) {
+        this.themesPromise = FilePicker.browse("data", "modules/progress-clocks/themes").then(data => {
+            let tempDirs = data.dirs;
+            let newDirs = [];
+            let newPaths = [];
+            let baseDirCheck = false;
+            tempDirs.forEach((dirItem) => {
+                let newDirItem = dirItem.replace("modules/progress-clocks/themes/","");
+                if (dirItem.startsWith("modules/progress-clocks/themes/")) {
+                    newDirs.push(newDirItem);
+                    newPaths.push(dirItem);
+                    baseDirCheck = true;
+                }
+            });
+            if (!(baseDirCheck)) {
+                console.error("Failed.")
+            };
+            this._themes = newDirs;
+            this._themePaths = tempDirs;
+        }).catch(err => {
+            console.error(err)
+        });
+        const isSupportedSize = size && Clock.sizes.indexOf(parseInt(size)) >= 0;
+        this._size = isSupportedSize ? parseInt(size) : Clock.sizes[0];
 
-    const p = (!progress || progress < 0) ? 0 : progress < this._size ? progress : this._size;
-    this._progress = p || 0;
+        const p = (!progress || progress < 0) ? 0 : progress < this._size ? progress : this._size;
+        this._progress = p || 0;
 
-    this._theme = theme || this._themes?.[0] || "wallflower_green";
-	  }
+        this._theme = theme || this._themes?.[0] || "wallflower_green";
+    }
 
-  get theme () {
-    return this._theme;
-  }
+    get theme () {
+        return this._theme;
+    }
 
   get size () {
     return this._size;
@@ -109,31 +79,6 @@ export class Clock {
       progress: this.progress
     });
   }
-
-  /* async cycleTheme () {
-	  let cycleClockThemeClock = new Clock();
-	  await cycleClockThemeClock.themesPromise;
-	  await cycleClockThemeClock.extraThemesPromise;
-	  
-		let cycleClockThemeCompiledThemes = [];
-		cycleClockThemeCompiledThemes.push(...cycleClockThemeClock._themes,...(cycleClockThemeClock._extraThemes ?? []));
-		//console.log(cycleClockThemeCompiledThemes);
-	
-		let cycleClockThemeCompiledThemePaths = [];
-		cycleClockThemeCompiledThemePaths.push(...cycleClockThemeClock._themePaths,...(cycleClockThemeClock._extraThemePaths ?? []))
-		//console.log(cycleClockThemeCompiledThemePaths)
-	
-		let cycleClockThemeThemeDict = {};
-		cycleClockThemeCompiledThemes.forEach((themeItem) =>{
-			cycleClockThemeThemeDict[themeItem] = cycleClockThemeCompiledThemePaths[cycleClockThemeCompiledThemes.indexOf(themeItem)]
-		});
-		//console.log(cycleClockThemeCompiledThemes[nextIndexInArray(cycleClockThemeCompiledThemes, this.theme)])
-    return {
-      theme: cycleClockThemeCompiledThemes[nextIndexInArray(cycleClockThemeCompiledThemes, this.theme)],
-      size: this.size,
-      progress: this.progress
-    };
-  } */
 
   increment () {
     const old = this;
