@@ -64,7 +64,7 @@ export class ClockSheet extends ActorSheet {
                 },
                 settings: {
                     sizes: Clock.sizes,
-                    themes: clock.themes
+                    themes: clock._themes
                 }
             }
         });
