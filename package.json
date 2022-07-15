@@ -5,7 +5,7 @@
     "main": "module/scripts/init.mjs",
     "scripts": {
         "clean": "rm build.zip",
-        "package": "cd module && zip -r ../build.zip . -x src\\* && cd ..",
+        "package": "cd module && zip -r ../build.zip . && cd ..",
         "release": "npm test && npm run package",
         "test": "ava"
     },
