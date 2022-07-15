@@ -26,7 +26,7 @@ const defaultPersistClockToActor = async ({ clock }) => {
     };
 };
 
-export const getSystemMapping = (id) => {
+export const getSystemMapping = id => {
     const defaultSystemConfig = {
         loadClockFromActor: defaultLoadClockFromActor,
         persistClockToActor: defaultPersistClockToActor

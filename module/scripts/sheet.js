@@ -1,5 +1,6 @@
 import { Clock } from "./clock.js";
 import { getSystemMapping } from "./systems/index.js";
+import { getFoundryVersion } from "./utils.js";
 
 const DISPLAY_NAME = {
     ALWAYS_FOR_EVERYONE: 50
@@ -134,16 +135,12 @@ export class ClockSheet extends ActorSheet {
 
     async updateClock(clock) {
         const actor = this.actor;
-
-	      let fullVer = game.version ?? game.data.version;
-
-        // update associated tokens
         const tokens = actor.getActiveTokens();
-	      let verMajor = fullVer.slice(0,3);
+        const foundryVersion = getFoundryVersion(game);
 
+        // Update the tokens
         for (const token of tokens) {
-		        //version check for compatability
-		        if (verMajor == "0.8" || verMajor.startsWith("9")) {
+            if (foundryVersion.major >= 8) {
 			          await token.document.update({
 				            name: actor.name,
 				            img: (
@@ -152,7 +149,7 @@ export class ClockSheet extends ActorSheet {
                     ),
 				            actorLink: true
 			          });
-		        } else if (verMajor == "0.7"){
+		        } else {
 			          await token.update({
 				            name: actor.name,
 				            img: (
@@ -164,7 +161,7 @@ export class ClockSheet extends ActorSheet {
 		        };
         }
 
-        // update the Actor
+        // Update the Actor
         const persistObj = await this.system.persistClockToActor({
             actor, clock
         });
