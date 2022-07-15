@@ -1,6 +1,6 @@
-import { Clock } from "./clock.js";
-import { getSystemMapping } from "./systems/index.js";
-import { getFoundryVersion } from "./utils.js";
+import { Clock } from "./clock.mjs";
+import { getSystemMapping } from "./systems/index.mjs";
+import { getFoundryVersion } from "./utils.mjs";
 
 const DISPLAY_NAME = {
     ALWAYS_FOR_EVERYONE: 50
