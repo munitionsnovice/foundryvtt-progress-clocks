@@ -1,5 +1,6 @@
 import DND5E from "./dnd5e.mjs";
 import BitD from "./blades-in-the-dark.mjs";
+import { getFoundryVersion } from "../utils.mjs";
 
 const SUPPORTED_SYSTEMS = {
     "blades-in-the-dark": "BitD",
@@ -33,11 +34,16 @@ export const getSystemMapping = id => {
     };
 
     if (!SUPPORTED_SYSTEMS[id]) {
+        const types = (
+            getFoundryVersion(game).major > 9 ?
+            game.system.template.Actor.types :
+            game.data.system.template.Actor.types
+        );
         return {
             id,
             ...defaultSystemConfig,
             registerSheetOptions: {
-                types: game.data.system.template.Actor.types
+                types: types
             }
         };
     }

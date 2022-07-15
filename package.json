@@ -1,11 +1,11 @@
 {
     "name": "foundryvtt-progress-clocks",
-    "version": "1.4.2",
+    "version": "1.5.0",
     "description": "Brings Forged in the Dark style progress clocks to your FoundryVTT games.",
-    "main": "module/scripts/init.js",
+    "main": "module/scripts/init.mjs",
     "scripts": {
         "clean": "rm build.zip",
-        "package": "cd module && zip -r ../build.zip . -x src\\* && cd ..",
+        "package": "cd module && zip -r ../build.zip . && cd ..",
         "release": "npm test && npm run package",
         "test": "ava"
     },
