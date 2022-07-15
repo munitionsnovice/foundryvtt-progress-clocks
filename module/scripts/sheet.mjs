@@ -147,7 +147,7 @@ export class ClockSheet extends ActorSheet {
                         `/${Clock.themes[clock.theme]}` +
                         `/${clock.size}clock_${clock.progress}.png`
                     ),
-				            actorLink: true
+                    actorLink: true
                 });
             } else {
                 await token.update({
