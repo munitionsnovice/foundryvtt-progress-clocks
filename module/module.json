@@ -8,7 +8,11 @@
     "download": "https://github.com/mattd/foundryvtt-progress-clocks/releases/download/v1.4.2/build.zip",
     "version": "1.4.2",
     "minimumCoreVersion": "0.7.0",
-    "compatibleCoreVersion": "9",
+    "compatibleCoreVersion": "10",
+    "compatibility": {
+        "minimum": "0.7.0",
+        "verified": "10"
+    },
     "esmodules": ["scripts/init.mjs"],
     "styles": ["styles/clocks.css"]
 }
