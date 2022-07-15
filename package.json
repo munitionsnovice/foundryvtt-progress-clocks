@@ -1,28 +1,28 @@
 {
-  "name": "foundryvtt-progress-clocks",
-  "version": "1.4.1",
-  "description": "Brings Forged in the Dark style progress clocks to your FoundryVTT games.",
-  "main": "module/scripts/init.js",
-  "scripts": {
-    "clean": "rm build.zip",
-    "package": "cd module && zip -r ../build.zip . -x src\\* && cd ..",
-    "release": "npm test && npm run package",
-    "test": "ava"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mattd/foundryvtt-progress-clocks.git"
-  },
-  "author": "troygoode, Argonius-Angelus, mattd",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mattd/foundryvtt-progress-clocks/issues"
-  },
-  "homepage": "https://github.com/mattd/foundryvtt-progress-clocks#readme",
-  "devDependencies": {
-    "ava": "^4.3.1"
-  },
-  "ava": {
-    "verbose": "true"
-  }
+    "name": "foundryvtt-progress-clocks",
+    "version": "1.4.2",
+    "description": "Brings Forged in the Dark style progress clocks to your FoundryVTT games.",
+    "main": "module/scripts/init.js",
+    "scripts": {
+        "clean": "rm build.zip",
+        "package": "cd module && zip -r ../build.zip . -x src\\* && cd ..",
+        "release": "npm test && npm run package",
+        "test": "ava"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/mattd/foundryvtt-progress-clocks.git"
+    },
+    "author": "troygoode, Argonius-Angelus, mattd",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/mattd/foundryvtt-progress-clocks/issues"
+    },
+    "homepage": "https://github.com/mattd/foundryvtt-progress-clocks#readme",
+    "devDependencies": {
+        "ava": "^4.3.1"
+    },
+    "ava": {
+        "verbose": true
+    }
 }
