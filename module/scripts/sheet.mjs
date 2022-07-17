@@ -162,7 +162,7 @@ export class ClockSheet extends ActorSheet {
         }
 
         // Update the Actor
-        const persistedObj = await this.system.persistClockToActor({
+        const persistObj = await this.system.persistClockToActor({
             actor, clock
         });
         const visualObj = {
@@ -178,6 +178,6 @@ export class ClockSheet extends ActorSheet {
                 ...DEFAULT_TOKEN
             }
         };
-        await actor.update(mergeObject(visualObj, persistedObj));
+        await actor.update(mergeObject(visualObj, persistObj));
     }
 }
