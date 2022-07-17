@@ -87,7 +87,7 @@ export class ClockSheet extends ActorSheet {
                     actor: this.actor
                 })
             );
-            this.updateClock(oldClock.decrement());
+            this.updateActorAndTokens(oldClock.decrement());
         });
 
         html.find("button[name=plus]").click(async (e) => {
@@ -97,7 +97,7 @@ export class ClockSheet extends ActorSheet {
                     actor: this.actor
                 })
             );
-            this.updateClock(oldClock.increment());
+            this.updateActorAndTokens(oldClock.increment());
         });
 
         html.find("button[name=reset]").click(async (e) => {
@@ -112,7 +112,7 @@ export class ClockSheet extends ActorSheet {
                 progress: 0,
                 size: oldClock.size
             });
-            this.updateClock(newClock);
+            this.updateActorAndTokens(newClock);
         });
     }
 
@@ -130,10 +130,10 @@ export class ClockSheet extends ActorSheet {
             size: form.size,
             theme: form.theme
         });
-        await this.updateClock(newClock);
+        await this.updateActorAndTokens(newClock);
     }
 
-    async updateClock(clock) {
+    async updateActorAndTokens(clock) {
         const actor = this.actor;
         const tokens = actor.getActiveTokens();
         const foundryVersion = getFoundryVersion(game);
@@ -162,7 +162,7 @@ export class ClockSheet extends ActorSheet {
         }
 
         // Update the Actor
-        const persistObj = await this.system.persistClockToActor({
+        const persistedObj = await this.system.persistClockToActor({
             actor, clock
         });
         const visualObj = {
@@ -178,6 +178,6 @@ export class ClockSheet extends ActorSheet {
                 ...DEFAULT_TOKEN
             }
         };
-        await actor.update(mergeObject(visualObj, persistObj));
+        await actor.update(mergeObject(visualObj, persistedObj));
     }
 }
