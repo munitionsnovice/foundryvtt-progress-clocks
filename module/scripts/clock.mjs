@@ -1,8 +1,3 @@
-const nextIndexInArray = (arr, el) => {
-    const idx = arr.indexOf(el);
-    return (idx < 0 || idx >= arr.length) ? 0 : idx + 1;
-}
-
 export class Clock {
     static sizes = [
         2, 3, 4, 5, 6, 8, 10, 12
@@ -48,14 +43,6 @@ export class Clock {
         };
     }
 
-    cycleSize () {
-        return new Clock({
-            size: Clock.sizes[nextIndexInArray(Clock.sizes, this.size)],
-            progress: this.progress,
-            theme: this.theme
-        });
-    }
-
     increment () {
         const old = this;
         return new Clock({
@@ -72,16 +59,5 @@ export class Clock {
             progress: old.progress - 1,
             theme: old.theme
         });
-    }
-
-    isEqual (clock) {
-        return clock
-            && clock.size === this.size
-            && clock.progress === this.progress
-            && clock.theme === this.theme;
-    }
-
-    toString () {
-        return `${this.progress}/${this.size} • ${this.theme}`;
     }
 }
