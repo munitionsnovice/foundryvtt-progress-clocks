@@ -11,7 +11,7 @@ export class Clock {
     static themePath = 'modules/progress-clocks/themes';
 
     static themes = {
-        gms_red: `${Clock.themePath}/gms_red`,
+        gmos_red: `${Clock.themePath}/gms_red`,
         gms_red_grey: `${Clock.themePath}/gms_red_grey`,
         wallflower_green: `${Clock.themePath}/wallflower_green`,
         wallflower_green_grey: `${Clock.themePath}/wallflower_green_grey`
