@@ -1,7 +1,6 @@
 export default {
     registerSheetOptions: { types: ["npc"] },
 
-
     persistClockToActor: ({ clock }) => {
         return {
             data: {
